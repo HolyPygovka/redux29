@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { incActionCreator, decActionCreator, rndActionCreator } from './actions';
+import { store } from './reducer';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const updateCount = (data) => {
+  count.innerHTML = data;
+}
+store.subscribe(() => updateCount(store.getState()));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const decrement = () => {
+  store.dispatch(decActionCreator());
+}
+const increment = () => {
+  store.dispatch(incActionCreator());
+}
+const randome = () => {
+  const payload = Math.floor(Math.random()*10);
+  store.dispatch(rndActionCreator(payload));
+}
+
+const dec = document.getElementById('dec');
+const inc = document.getElementById('inc');
+const rnd = document.getElementById('rnd');
+const count = document.getElementById('conter');
+
+dec.addEventListener('click', decrement);
+inc.addEventListener('click', increment);
+rnd.addEventListener('click', randome);
