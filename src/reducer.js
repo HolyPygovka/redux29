@@ -1,9 +1,15 @@
 import { createStore } from 'redux';
 
-function counter(state = 0, action) {
+const initialState = {
+  counter: 0,
+  userName: 'Vasya',
+  SEcondName: 'Pypkin'
+}
+
+function counter(state = initialState, action) {
     switch (action.type) {
       case 'INCREMENT':
-        return state + 1
+        return {...state, counter: state.counter + 1}
       case 'DECREMENT':
         return state - 1
       case 'RANDOME':
